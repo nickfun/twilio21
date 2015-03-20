@@ -59,7 +59,7 @@ def main():
         print "First Call!"
         session['count'] = 0
         session['wins'] = 0
-        session['playerHand'] = calculateHand()
+        session['playerHand'] = calculateHand()+calculateHand()
         session['dealerHand'] = calculateHand()
         tplData['message'] = messages['welcome']
         tplData['message'] += messages['begin_game'].format(dealer=session['dealerHand'], player=session['playerHand']) + messages['instructions']
@@ -71,7 +71,7 @@ def main():
             if session['playerHand'] > 21:
                 tplData['message'] = "You bused! You have {} and that is too much! Sorry. ".format(session['playerHand'])
                 # restart the game
-                session['playerHand'] = calculateHand()
+                session['playerHand'] = calculateHand()+calculateHand()
                 session['dealerHand'] = calculateHand()
                 tplData['message'] += messages['begin_game'].format(dealer=session['dealerHand'], player=session['playerHand'])
                 session['count'] += 1
@@ -93,12 +93,19 @@ def main():
                 tplData['message'] = "The dealer wins the game with {} ".format(session['dealerHand'])
                 session['count'] += 1
             # restart the game
-            session['playerHand'] = calculateHand()
+            session['playerHand'] = calculateHand()+calculateHand()
             session['dealerHand'] = calculateHand()
             tplData['message'] += messages['begin_game'].format(dealer=session['dealerHand'], player=session['playerHand'])
         elif choice == QUIT:
             print "PLAYER CHOOSE QUIT"
             db[request.values.get('From')] = session
+            tplData = {}
+            wins = session['wins']
+            loss = session['count'] - wins
+            if wins > loss:
+                tplData['message'] = "You are a pretty good player! "
+            else:
+                tplData['message'] = "Stay away from las vegas "
             return render_template("quit.xml", s=session)
         else:
             print "UNKNOWN PLAYER CHOICE"
