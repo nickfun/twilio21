@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Response>
-  {% if t.first_message != "" %}<Say voice="alice">first message {{ t.first_message }}</Say>{% endif %}
   <Gather action="{{ t.host }}" method="GET" timeout="30" numDigits="1">
-    <Say voice="alice">{{ t.gather_message }}</Say>
+    <Say voice="alice">{{ t.message }}</Say>
   </Gather>
-  <!-- hand info
+  <!-- INFO
        player: {{s.playerHand}}
        dealer: {{s.dealerHand}}
+       sid: {{s.callSid}}
+       count: {{s.count}}
+       wins: {{s.wins}}
   -->
 </Response>
