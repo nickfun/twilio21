@@ -54,6 +54,9 @@ def main():
     tplData = {}
     tplData['host'] = host
 
+    if request.values.has_key('CallSid'):
+        session['callSid'] = request.values.get('CallSid')
+
     if request.values.get('CallStatus') == "ringing":
         # the first call
         print "First Call!"
@@ -79,15 +82,15 @@ def main():
                 tplData['message'] = messages['status'].format(dealer=session['dealerHand'], player=session['playerHand'])
         elif choice == STAY:
             print "PLAYER CHOOSE STAY"
-            while session['dealerHand'] <= 18 and session['dealerHand'] < session['playerHand']:
+            while session['dealerHand'] <= 18 or session['dealerHand'] <= session['playerHand']:
                 nextHand = calculateHand(session['dealerHand'])
                 print "DEALER HITS: {} => {} ".format(session['dealerHand'], nextHand)
                 session['dealerHand'] = nextHand
-            if session['dealerHand'] > 21:
+            if session['dealerHand'] > 21 or session['playerHand'] > session['dealerHand']:
                 # player wins!
                 session['count'] += 1
                 session['wins'] += 1
-                tplData['message'] = "The dealer busted with {}, you are the winner! ".format(session['dealerHand'])
+                tplData['message'] = "The dealer busted with {}, you are the winner! ".format(session['dealerHand'])                
             else:
                 # dealer wins
                 tplData['message'] = "The dealer wins the game with {} ".format(session['dealerHand'])
@@ -98,6 +101,7 @@ def main():
             tplData['message'] += messages['begin_game'].format(dealer=session['dealerHand'], player=session['playerHand'])
         elif choice == QUIT:
             print "PLAYER CHOOSE QUIT"
+            # Save Session
             db[request.values.get('From')] = session
             tplData = {}
             wins = session['wins']
@@ -106,7 +110,7 @@ def main():
                 tplData['message'] = "You are a pretty good player! "
             else:
                 tplData['message'] = "Stay away from las vegas "
-            return render_template("quit.xml", s=session)
+            return render_template("quit.xml", s=session, t=tplData)
         else:
             print "UNKNOWN PLAYER CHOICE"
             tplData['message'] = 'Unknown Choice!'
