@@ -10,15 +10,17 @@ from flask import Flask, request, render_template, Response
 from random import randint
 import pprint
 import json
+import os
 
 HIT  = "1"
 STAY = "6"
 QUIT = "7"
+PORT = int(os.getenv("PORT", "5050"))
 
 server = Flask("blackjack")
 pp = pprint.PrettyPrinter(indent=4)
 db = {}
-host = "http://5930a37.ngrok.com"
+host = "http://nick.gs:8000/app"
 messages = {
     "welcome": "Welcome to the Twilio 21 App by Nick. ",
     "begin_game": "It's time for a new game! The dealer has {dealer} and you have {player}. ",
@@ -43,8 +45,12 @@ def getSession(number):
 
 def calculateHand(start=0):
     return start + randint(2,10)
-    
+
 @server.route("/")
+def index():
+    return render_template("index.html")
+    
+@server.route("/app")
 def main():
     if request.values.get('From') == None:
         print "--- Not From Twilio!"
@@ -109,7 +115,7 @@ def main():
             if wins > loss:
                 tplData['message'] = "You are a pretty good player! "
             else:
-                tplData['message'] = "Stay away from las vegas "
+                tplData['message'] = "Stay away from Las Vegas. "
             return render_template("quit.xml", s=session, t=tplData)
         else:
             print "UNKNOWN PLAYER CHOICE"
@@ -136,4 +142,4 @@ def showAllSession():
     return resp
     
 # RUN SERVER
-server.run(debug=True)
+server.run(debug=True, port=PORT, host="0.0.0.0")

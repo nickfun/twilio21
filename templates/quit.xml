@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Response>
-    <Say voice="alice">Thank you for playing the game! You payed {{ s.count }} games. You won {{ s.wins }} of them. {{ t.message }}</Say>
+    <Say voice="alice">Thank you for playing the game! You played {{ s.count }} games. You won {{ s.wins }} of them. {{ t.message }}</Say>
 </Response>
