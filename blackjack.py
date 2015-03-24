@@ -20,7 +20,7 @@ PORT = int(os.getenv("PORT", "5050"))
 server = Flask("blackjack")
 pp = pprint.PrettyPrinter(indent=4)
 db = {}
-host = "http://nick.gs:8000/app"
+host = "http://nick.gs:9900/app"
 messages = {
     "welcome": "Welcome to the Twilio 21 App by Nick. ",
     "begin_game": "It's time for a new game! The dealer has {dealer} and you have {player}. ",
