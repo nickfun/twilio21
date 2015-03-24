@@ -1,0 +1,31 @@
+* Twilio 21 App
+
+A simple twilio-powered version of Blackjack. Call into the app and you can play the card game 21.
+
+* Game Info
+
+- instead of cards, players get a random number from 1 to 10
+- dealer starts with one random number
+- player starts with the sum of two random numbers
+- player can hit or stay
+- do not go over 21!
+- after you stay, dealer will have option to hit or stay
+
+* Technical Info
+
+** Running the game
+
+You need Flask installed, use `pip install flask` 
+
+** Built With
+
+- Python, Flask, Jinja
+- Emacs
+- Linode
+- TWILIO
+
+* Planned Features
+
+** TODO When player enters incorrect input, echo the instructions again
+** TODO the HOST variable in the template should be controlled by an enviroment variable
+** TODO the HOST varialbe in the template should build off the PORT enviroment variable
