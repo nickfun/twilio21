@@ -56,7 +56,8 @@ def main():
     session = getSession(request.values.get('From'))
     choice = request.values.get("Digits")
     tplData = {}
-    tplData['host'] = HOST + ":" + str(PORT)
+    tplData['host'] = HOST
+    tplData['port'] = str(PORT)
     tplData['key_hit'] = HIT
     tplData['key_stay'] = STAY
     tplData['key_quit'] = QUIT
