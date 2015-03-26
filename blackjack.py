@@ -101,7 +101,7 @@ def main():
                 tplData['message'] = "The dealer busted with {}, you are the winner! ".format(session['dealerHand'])                
             else:
                 # dealer wins
-                tplData['message'] = "The dealer wins the game with {} ".format(session['dealerHand'])
+                tplData['message'] = "The dealer wins the game with {}. ".format(session['dealerHand'])
                 session['count'] += 1
             # restart the game
             session['playerHand'] = calculateHand()+calculateHand()
