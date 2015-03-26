@@ -8,7 +8,6 @@
 
 from flask import Flask, request, render_template, Response
 from random import randint
-import pprint
 import json
 import os
 
@@ -16,11 +15,10 @@ HIT  = "1"
 STAY = "6"
 QUIT = "7"
 PORT = int(os.getenv("PORT", "5050"))
+HOST = os.getenv("HOST", "localhost")
 
 server = Flask("blackjack")
-pp = pprint.PrettyPrinter(indent=4)
 db = {}
-host = "http://nick.gs:9900/app"
 messages = {
     "welcome": "Welcome to the Twilio 21 App by Nick. ",
     "begin_game": "It's time for a new game! The dealer has {dealer} and you have {player}. ",
@@ -58,7 +56,7 @@ def main():
     session = getSession(request.values.get('From'))
     choice = request.values.get("Digits")
     tplData = {}
-    tplData['host'] = host
+    tplData['host'] = HOST + ":" + str(PORT)
 
     if request.values.has_key('CallSid'):
         session['callSid'] = request.values.get('CallSid')
@@ -142,4 +140,5 @@ def showAllSession():
     return resp
     
 # RUN SERVER
+print "HOST is {} PORT is {}".format(HOST,PORT)
 server.run(debug=True, port=PORT, host="0.0.0.0")
