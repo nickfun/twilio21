@@ -15,7 +15,21 @@ A simple twilio-powered version of Blackjack. Call into the app and you can play
 
 ** Running the game
 
-You need Flask installed, use `pip install flask` 
+You need Flask installed, use =pip install flask=
+
+The server needs to know how to access itself on the internet, so set =HOST= and =PORT= as enviroment variables before running.
+
+example:
+
+#+BEGIN_SRC bash
+$ HOST=myserver.com
+$ PORT=9000
+$ python blackjack.py
+#+END_SRC
+
+Or you can make a =.env= file and use something like Honcho or Foreman.
+
+Once the server is running, set your host and port as the Voice URL for one of your twilio numbers. Then call the number on a phone!
 
 ** Built With
 
