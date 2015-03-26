@@ -12,8 +12,8 @@ import json
 import os
 
 HIT  = "1"
-STAY = "6"
-QUIT = "7"
+STAY = "3"
+QUIT = "6"
 PORT = int(os.getenv("PORT", "5050"))
 HOST = os.getenv("HOST", "localhost")
 
@@ -22,8 +22,8 @@ db = {}
 messages = {
     "welcome": "Welcome to the Twilio 21 App by Nick. ",
     "begin_game": "It's time for a new game! The dealer has {dealer} and you have {player}. ",
-    "instructions": "1 to hit, 6 to stay, 7 to quit. ",
-    "status": "Dealer has {dealer} and you have {player}, what do you want to do?"
+    "instructions": "{} to hit, {} to stay, {} to quit. ".format(HIT, STAY, QUIT),
+    "status": "Dealer has {dealer} and you have {player}, what do you want to do? "
 }
 
 def getSession(number):
@@ -57,6 +57,9 @@ def main():
     choice = request.values.get("Digits")
     tplData = {}
     tplData['host'] = HOST + ":" + str(PORT)
+    tplData['key_hit'] = HIT
+    tplData['key_stay'] = STAY
+    tplData['key_quit'] = QUIT
 
     if request.values.has_key('CallSid'):
         session['callSid'] = request.values.get('CallSid')
@@ -117,7 +120,7 @@ def main():
             return render_template("quit.xml", s=session, t=tplData)
         else:
             print "UNKNOWN PLAYER CHOICE"
-            tplData['message'] = 'Unknown Choice!'
+            tplData['message'] = 'Unknown Choice! ' + messages['status'].format(dealer=session['dealerHand'], player=session['playerHand']) + messages['instructions']
 
     # save session
     db[request.values.get('From')] = session

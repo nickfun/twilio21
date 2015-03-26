@@ -22,8 +22,8 @@ The server needs to know how to access itself on the internet, so set =HOST= and
 example:
 
 #+BEGIN_SRC bash
-$ HOST=myserver.com
-$ PORT=9000
+$ export HOST=myserver.com
+$ export PORT=9000
 $ python blackjack.py
 #+END_SRC
 
