@@ -90,18 +90,20 @@ def main():
                 tplData['message'] = messages['status'].format(dealer=session['dealerHand'], player=session['playerHand'])
         elif choice == STAY:
             print "PLAYER CHOOSE STAY"
+            hitMessage = ""
             while session['dealerHand'] <= 18 or session['dealerHand'] <= session['playerHand']:
                 nextHand = calculateHand(session['dealerHand'])
                 print "DEALER HITS: {} => {} ".format(session['dealerHand'], nextHand)
+                hitMessage += "Dealer hits and now has {}. ".format(nextHand)
                 session['dealerHand'] = nextHand
             if session['dealerHand'] > 21 or session['playerHand'] > session['dealerHand']:
                 # player wins!
                 session['count'] += 1
                 session['wins'] += 1
-                tplData['message'] = "The dealer busted with {}, you are the winner! ".format(session['dealerHand'])                
+                tplData['message'] = hitMessage + "The dealer busted with {}, you are the winner! ".format(session['dealerHand'])                
             else:
                 # dealer wins
-                tplData['message'] = "The dealer wins the game with {}. ".format(session['dealerHand'])
+                tplData['message'] = hitMessage + "The dealer wins the game with {}. ".format(session['dealerHand'])
                 session['count'] += 1
             # restart the game
             session['playerHand'] = calculateHand()+calculateHand()
