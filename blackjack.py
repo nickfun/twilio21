@@ -13,7 +13,7 @@ import os
 
 HIT  = "1"
 STAY = "3"
-QUIT = "6"
+QUIT = "7"
 PORT = int(os.getenv("PORT", "5050"))
 HOST = os.getenv("HOST", "localhost")
 
@@ -87,7 +87,7 @@ def main():
                 tplData['message'] += messages['begin_game'].format(dealer=session['dealerHand'], player=session['playerHand'])
                 session['count'] += 1
             else:
-                tplData['message'] = messages['status'].format(dealer=session['dealerHand'], player=session['playerHand'])
+                tplData['message'] = "You hit. " + messages['status'].format(dealer=session['dealerHand'], player=session['playerHand'])
         elif choice == STAY:
             print "PLAYER CHOOSE STAY"
             hitMessage = ""
