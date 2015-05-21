@@ -47,6 +47,16 @@ def calculateHand(start=0):
 @server.route("/")
 def index():
     return render_template("index.html")
+
+@server.route("/sms")
+def getSms():
+    response = """
+<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+    <Message>Please call this number instead of sending it a text.</Message>
+</Response>
+"""
+    return response
     
 @server.route("/app")
 def main():
