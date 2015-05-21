@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Response>
   <Pause length="1" />
-  <Gather action="{{ t.host }}:{{ t.port }}/app" method="GET" timeout="30" numDigits="1">
+  <Gather action="http://{{ t.host }}:{{ t.port }}/app" method="GET" timeout="30" numDigits="1">
     <Say voice="alice">{{ t.message }}</Say>
   </Gather>
   <!-- INFO
